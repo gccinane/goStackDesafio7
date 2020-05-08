@@ -3,10 +3,12 @@ import { Text} from 'react-native';
 import Header from '../../Components/Header'
 // import { Container } from './styles';
 
-export default function Cart(){
+export default function Cart({navigation}){
   return (
-    <Header/>
-
+    <>
+    <Header navigation = {navigation}/>
+    <Text>top</Text>
+    </>
   );
 
 }
