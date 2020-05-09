@@ -1,23 +1,15 @@
 import React from 'react';
 import { Text } from 'react-native';
 import Header from '../../Components/Header'
- import { Container, Product } from './styles';
+ import { Container, Product, ProductList } from './styles';
 
 export default function Main({navigation}){
   return (
-    <>
-      <Header navigation = {navigation}/>
       <Container>
-
-        <Product>
-
-        </Product>
-        <Product>
-          tenis
-        </Product>
-
+        <Header navigation = {navigation}/>
+        <ProductList data = {[{key: 'a'}, {key: "b"}]} renderItem = {({item}) => <Product></Product>} horizontal={true} />
       </Container>
-    </>
+
   )
 }
 

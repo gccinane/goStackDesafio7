@@ -10,7 +10,7 @@ export const Logo = styled.Image`
   margin-left: 10px;
   margin-top: 10px;
   width: 185px;
-  height: 20px;
+  height: 28px;
 `
 
 export const LogoButton = styled.TouchableOpacity`
