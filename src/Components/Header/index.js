@@ -19,7 +19,7 @@ export default function Header ({navigation}){
 
 
       <IconButton onPress = {() => handleNavigate('Cart')}>
-        <Icon name="cart" size={35} color="#eee" style = {{position: "relative", marginLeft: 95, marginTop: 5}}/>
+        <Icon name="basket" size={25} color="#eee" style = {{position: "relative", marginLeft: 95, marginTop: 5}}/>
       </IconButton>
 
     </Container>
