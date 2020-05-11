@@ -1,6 +1,6 @@
 import React from 'react';
 import img from '../../assets/logo.png'
-import { Container, Logo, LogoButton, IconButton } from './styles';
+import { Container, Logo, LogoButton, IconButton, IconText } from './styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
@@ -19,7 +19,8 @@ export default function Header ({navigation}){
 
 
       <IconButton onPress = {() => handleNavigate('Cart')}>
-        <Icon name="basket" size={25} color="#eee" style = {{position: "relative", marginLeft: 95, marginTop: 7}}/>
+        <Icon name="basket" size={25} color="#eee" style = {{position: "relative", marginLeft: 90, marginTop: 13}}/>
+        <IconText>3</IconText>
       </IconButton>
 
     </Container>
