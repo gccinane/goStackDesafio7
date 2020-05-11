@@ -18,3 +18,10 @@ export const Product = styled.View`
 
 export const ProductList = styled.FlatList`
 `
+export const ProductImage = styled.Image``
+
+export const ProductDescription = styled.Text``
+
+export const ProductPrice = styled.Text``
+
+export const ProductButton = styled.Button``
