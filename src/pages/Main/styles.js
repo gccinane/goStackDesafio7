@@ -3,7 +3,6 @@ import {RectButton} from 'react-native-gesture-handler'
 import { darken } from 'polished'
 
 export const Container = styled.View`
-
   background: #262626;
   height: 100%;
   width: 100%
@@ -71,4 +70,5 @@ export const ButtonText = styled.Text`
   align-self: center;
   color: #fff;
   font-weight: bold;
+
 `

@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 export default function routes() {
   return(
     <Stack.Navigator headerMode= "none">
-      <Stack.Screen name = "Main" component = {Main}/>
+      <Stack.Screen name = "Main" component = {Main} />
       <Stack.Screen name = "Cart" component = {Cart}/>
     </Stack.Navigator>
   )
