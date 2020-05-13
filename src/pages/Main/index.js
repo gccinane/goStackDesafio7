@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import Header from '../../Components/Header'
 import api from '../../services/api'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import {connect} from 'react-redux'
 import { Container, Product, ProductList, ProductImage, ProductDescription, ProductPrice, ProductButton, ButtonText, ProductAmount, ProductAmountText } from './styles';
 
-export default class Main extends Component{
+ class Main extends Component{
   state = {
     products: [],
   }
@@ -17,6 +18,15 @@ export default class Main extends Component{
     const res = await api.get('/products');
     this.setState({products: res.data})
 
+  }
+
+  handleAddProduct = product =>{
+    const {dispatch} = this.props;
+
+    dispatch({
+      type: 'ADD_TO_CART',
+      product,
+    })
   }
 
   render(){
@@ -38,7 +48,7 @@ export default class Main extends Component{
             <ProductImage source={{uri: item.image}}/>
             <ProductDescription>{item.title}</ProductDescription>
             <ProductPrice>{item.price}</ProductPrice>
-            <ProductButton>
+            <ProductButton onPress = {() => this.handleAddProduct}>
               <ProductAmount>
                 <Icon name = "cart-plus" size = {20} style= {{color:"#fff", top: 12}}/>
                 <ProductAmountText>2</ProductAmountText>
@@ -51,8 +61,10 @@ export default class Main extends Component{
           </Product>)}/>
       </Container>
 
-  )
+    )
   }
 
 }
+
+export default connect()(Main)
 
