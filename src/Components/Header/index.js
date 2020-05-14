@@ -1,29 +1,34 @@
 import React from 'react';
-import img from '../../assets/logo.png'
+import {connect} from 'react-redux'
+import img from '../../assets/logo.png';
 import { Container, Logo, LogoButton, IconButton, IconText } from './styles';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+function Header({ navigation, cartSize }) {
 
-export default function Header ({navigation}){
-
-  function handleNavigate(page){
+  function handleNavigate(page) {
     navigation.navigate(page);
   }
 
-
   return (
     <Container>
-      <LogoButton onPress = {() => handleNavigate('Main')}>
-        <Logo source={img} resizeMode= "stretch"/>
+      <LogoButton onPress={() => handleNavigate('Main')}>
+        <Logo source={img} resizeMode="stretch" />
       </LogoButton>
 
-
-      <IconButton onPress = {() => handleNavigate('Cart')}>
-        <Icon name="basket" size={25} color="#eee" style = {{position: "relative", marginLeft: 90, marginTop: 13}}/>
-        <IconText>3</IconText>
+      <IconButton onPress={() => handleNavigate('Cart')}>
+        <Icon
+          name="basket"
+          size={25}
+          color="#eee"
+          style={{ position: 'relative', marginLeft: 90, marginTop: 13 }}
+        />
+        <IconText>{cartSize}</IconText>
       </IconButton>
-
     </Container>
   );
 }
 
+export default connect(state => ({
+  cartSize: state.cart.length,
+}))(Header);

@@ -12,17 +12,12 @@ export const Logo = styled.Image`
   margin-top: 10px;
   width: 185px;
   height: 28px;
-`
+`;
 
-export const LogoButton = styled.TouchableOpacity`
+export const LogoButton = styled.TouchableOpacity``;
 
-`
-
-export const IconButton = styled.TouchableOpacity`
-
-`
+export const IconButton = styled.TouchableOpacity``;
 export const IconText = styled.Text`
-
   padding: 1px 6px;
   background: #7159c1;
   color: #fff;
@@ -31,5 +26,4 @@ export const IconText = styled.Text`
   right: -7px;
   font-size: 11px;
   top: 7px;
-
-`
+`;

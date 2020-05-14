@@ -1,21 +1,18 @@
 import styled from 'styled-components/native';
-import {RectButton} from 'react-native-gesture-handler'
-
+import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   background: #262626;
   height: 100%;
   width: 100%;
-
 `;
 
 export const Products = styled.View`
   height: 400px;
-`
+`;
 
 export const ProductList = styled.FlatList`
   align-self: center;
-
 `;
 
 export const Product = styled.View`
@@ -24,35 +21,32 @@ export const Product = styled.View`
   padding: 6px;
   margin: 0 5px;
   background: #fff;
-
-`
-
+`;
 
 export const ProductImage = styled.Image`
   position: relative;
   left: 4px;
   width: 100px;
   height: 100px;
-`
+`;
 
 export const ProductDetails = styled.View`
   flex-shrink: 1;
   flex-direction: row;
-`
+`;
 
 export const ProductDescription = styled.Text`
   color: #767676;
   margin: 20px;
   font-size: 15px;
   width: 55%;
-
-`
+`;
 
 export const ProductPrice = styled.Text`
   font-size: 21px;
   font-weight: bold;
   margin-left: 4px;
-`
+`;
 
 export const ProductButton = styled(RectButton)`
   height: 45px;
@@ -60,23 +54,19 @@ export const ProductButton = styled(RectButton)`
   border-radius: 5px;
   margin-top: auto;
   color: #fff;
-
-`
+`;
 
 export const ButtonText = styled.Text`
-
   font-size: 18px;
   color: #fff;
   font-weight: bold;
-
-`
+`;
 
 export const DeleteButton = styled(RectButton)`
   position: absolute;
   right: 10px;
   top: 30px;
-`
-
+`;
 
 export const AddButton = styled(RectButton)`
   margin: 3.5px 5px 3px 0;
@@ -90,16 +80,14 @@ export const Amount = styled.Text`
   width: 60px;
   border-radius: 5px;
   text-align: center;
-  padding-top:2px;
+  padding-top: 2px;
   margin: 8px 10px;
-  elevation:4;
-
+  elevation: 4;
 `;
 export const ProductSubtotal = styled.Text`
   margin: 9px 40px 0 30px;
   font-weight: bold;
   font-size: 16px;
-
 `;
 export const ProductControl = styled.View`
   height: 20px;
@@ -122,7 +110,6 @@ export const TotalDecripton = styled.Text`
   color: #ccc;
   font-size: 19px;
   text-align: center;
-
 `;
 export const TotalValue = styled.Text`
   margin-top: 10px;

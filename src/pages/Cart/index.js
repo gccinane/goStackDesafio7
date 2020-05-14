@@ -1,109 +1,123 @@
-import React, {Component} from 'react';
-import Header from '../../Components/Header'
-import api from '../../services/api'
-import DeleteIcon from 'react-native-vector-icons/MaterialCommunityIcons'
-import AddIcon from 'react-native-vector-icons/MaterialIcons'
-import RemoveIcon from 'react-native-vector-icons/MaterialCommunityIcons'
-
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Header from '../../Components/Header';
+import {bindActionCreators} from 'redux'
+import api from '../../services/api';
+import DeleteIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AddIcon from 'react-native-vector-icons/MaterialIcons';
+import RemoveIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import * as CartActions from '../../store/modules/cart/actions'
 import {
-   ProductDetails,
-   Container,
-   Product,
-   ProductList,
-   ProductImage,
-   ProductDescription,
-    Products,
-   ProductPrice,
-   ButtonText,
-   DeleteButton,
-   AddButton,
-   RemoveButton,
-   Amount,
-   ProductSubtotal,
-   ProductControl,
-   TotalContainer,
-   TotalDecripton,
-   TotalValue,
-   OrderButton,
-   } from './styles';
+  ProductDetails,
+  Container,
+  Product,
+  ProductList,
+  ProductImage,
+  ProductDescription,
+  Products,
+  ProductPrice,
+  ButtonText,
+  DeleteButton,
+  AddButton,
+  RemoveButton,
+  Amount,
+  ProductSubtotal,
+  ProductControl,
+  TotalContainer,
+  TotalDecripton,
+  TotalValue,
+  OrderButton,
+} from './styles';
 
-export default class Cart extends Component{
-
+class Cart extends Component {
   state = {
     products: [],
+  };
+
+  componentDidMount() {
+    this.loadProducts();
   }
 
-
-
-  componentDidMount(){
-    this.loadProducts()
+  decrement(product){
+    this.handleUpdate(product.amount -1, product.id)
   }
 
-  async loadProducts(){
-    const res = await api.get('/products')
-
-    this.setState({products: res.data})
-
+  increment(product){
+   this.handleUpdate(product.amount +1, product.id)
   }
 
-  render(){
+  handleUpdate = (value, id) =>{
+    const {updateAmount} = this.props;
+    updateAmount(id,value);
+  }
+  async loadProducts() {
+    const res = await api.get('/products');
 
-   const {products} = this.state;
-   const {navigation} = this.props;
+    this.setState({ products: res.data });
+  }
+
+  handleDelete = id =>{
+    const {removeFromCart} = this.props;
+    removeFromCart(id)
+  }
+
+  render() {
+
+    const { navigation, cart } = this.props;
 
     return (
       <Container>
-        <Header navigation = {navigation}/>
+        <Header navigation={navigation} />
         <Products>
           <ProductList
-                data = {products}
-                keyExtractor = {(product) => product.id.toString()}
-                renderItem = {({item}) => (
-                <Product>
+            data={cart}
+            keyExtractor={product => product.id.toString()}
+            renderItem={({ item }) => (
+              <Product>
+                <ProductDetails>
+                  <ProductImage source={{ uri: item.image }} />
+                  <ProductDescription>{item.title}</ProductDescription>
+                  <ProductPrice>{item.price}</ProductPrice>
+                  <DeleteButton onPress = {() => this.handleDelete(item.id)}>
+                    <DeleteIcon name="delete" size={25} color="#7159c1" />
+                  </DeleteButton>
+                </ProductDetails>
+                <ProductControl>
+                  <RemoveButton onPress = {() => this.decrement(item)}>
+                    <RemoveIcon name="minus" size={30} color="#7159c1" />
+                  </RemoveButton>
 
-                  <ProductDetails>
-                    <ProductImage source={{uri: item.image}}/>
-                    <ProductDescription>{item.title}</ProductDescription>
-                    <ProductPrice>{item.price}</ProductPrice>
-                    <DeleteButton>
-                    <DeleteIcon name = "delete" size = {25} color ="#7159c1"/>
-                    </DeleteButton>
-                  </ProductDetails>
-                  <ProductControl>
+                  <Amount>{item.amount}</Amount>
 
-                    <RemoveButton>
-                      <RemoveIcon  name = "minus" size = {30} color = "#7159c1"/>
-                    </RemoveButton>
-
-                    <Amount>3</Amount>
-
-                    <AddButton>
-                      <AddIcon  name = "add" size = {30} color = "#7159c1"/>
-                    </AddButton>
-                    <ProductSubtotal>
-                      R$ 2131.23
-                    </ProductSubtotal>
-                  </ProductControl>
-
-
-                </Product>)}/>
+                  <AddButton onPress = {() => this.increment(item)}>
+                    <AddIcon name="add" size={30} color="#7159c1" />
+                  </AddButton>
+                  <ProductSubtotal>R$ 2131.23</ProductSubtotal>
+                </ProductControl>
+              </Product>
+            )}
+          />
         </Products>
 
-
         <TotalContainer>
-            <TotalDecripton>TOTAL</TotalDecripton>
-            <TotalValue>R$432423.99</TotalValue>
+          <TotalDecripton>TOTAL</TotalDecripton>
+          <TotalValue>R$432423.99</TotalValue>
           <OrderButton>
-            <ButtonText>
-              FINALIZAR PEDIDO
-            </ButtonText>
+            <ButtonText>FINALIZAR PEDIDO</ButtonText>
           </OrderButton>
-
         </TotalContainer>
-
       </Container>
     );
-
   }
-
 }
+
+const mapStateToProps = state => ({
+  cart: state.cart,
+})
+
+const mapDispatchToProps = dispatch =>{
+
+  return bindActionCreators(CartActions, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

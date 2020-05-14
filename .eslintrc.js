@@ -26,9 +26,7 @@ module.exports = {
     'prettier'
   ],
   rules: {
-    'prettier/prettier': ['error', {
-      endOfLine: auto
-    }],
+    'prettier/prettier': ['error'],
     'import/prefer-default-export': 'off'
   }
 }
