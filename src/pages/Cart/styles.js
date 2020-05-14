@@ -8,7 +8,8 @@ export const Container = styled.View`
 `;
 
 export const Products = styled.View`
-  height: 400px;
+  height: 350px;
+
 `;
 
 export const ProductList = styled.FlatList`
@@ -84,8 +85,8 @@ export const Amount = styled.Text`
   margin: 8px 10px;
   elevation: 4;
 `;
-export const ProductSubtotal = styled.Text`
-  margin: 9px 40px 0 30px;
+export const ProductSubtotal = styled.TextInput`
+  margin: 0 40px 0 30px;
   font-weight: bold;
   font-size: 16px;
 `;
@@ -105,14 +106,13 @@ export const TotalContainer = styled.View`
   height: 150px
   align-self: center;
 `;
-export const TotalDecripton = styled.Text`
+export const TotalDescripton = styled.Text`
   margin-top: 5px;
   color: #ccc;
   font-size: 19px;
   text-align: center;
 `;
-export const TotalValue = styled.Text`
-  margin-top: 10px;
+export const TotalValue = styled.TextInput`
   font-weight: bold;
   font-size: 30px;
   text-align: center;
@@ -122,7 +122,6 @@ export const OrderButton = styled(RectButton)`
   background: #7159c1;
   border-radius: 5px;
   margin: 0 15px 10px;
-  margin-top: auto;
   color: #fff;
   align-items: center;
   justify-content: center;

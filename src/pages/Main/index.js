@@ -20,19 +20,24 @@ import {
 } from './styles';
 
 class Main extends Component {
+  _isMounted = false;
   state = {
     products: [],
   };
 
   componentDidMount() {
+    this._isMounted = true;
     this.loadProducts();
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   async loadProducts() {
     const res = await api.get('/products');
     const data = res.data.map(product =>({
       ...product,
-      priceFormatted: format(product.price)
     }))
     this.setState({ products: res.data });
   }
@@ -57,7 +62,7 @@ class Main extends Component {
             <Product>
               <ProductImage source={{ uri: item.image }} />
               <ProductDescription>{item.title}</ProductDescription>
-              <ProductPrice>{item.price}</ProductPrice>
+              <ProductPrice>R${item.price}</ProductPrice>
               <ProductButton onPress={()=> this.handleAddProduct(item.id)}>
                 <ProductAmount>
                   <Icon

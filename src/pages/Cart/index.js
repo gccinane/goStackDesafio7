@@ -25,7 +25,7 @@ import {
   ProductSubtotal,
   ProductControl,
   TotalContainer,
-  TotalDecripton,
+  TotalDescripton,
   TotalValue,
   OrderButton,
 } from './styles';
@@ -64,7 +64,7 @@ class Cart extends Component {
 
   render() {
 
-    const { navigation, cart } = this.props;
+    const { navigation, cart, total } = this.props;
 
     return (
       <Container>
@@ -93,7 +93,7 @@ class Cart extends Component {
                   <AddButton onPress = {() => this.increment(item)}>
                     <AddIcon name="add" size={30} color="#7159c1" />
                   </AddButton>
-                  <ProductSubtotal>R$ 2131.23</ProductSubtotal>
+                  <ProductSubtotal maxLength = {10}>R${item.subtotal}</ProductSubtotal>
                 </ProductControl>
               </Product>
             )}
@@ -101,8 +101,8 @@ class Cart extends Component {
         </Products>
 
         <TotalContainer>
-          <TotalDecripton>TOTAL</TotalDecripton>
-          <TotalValue>R$432423.99</TotalValue>
+          <TotalDescripton>TOTAL</TotalDescripton>
+            <TotalValue maxLength = {8}>R${total}</TotalValue>
           <OrderButton>
             <ButtonText>FINALIZAR PEDIDO</ButtonText>
           </OrderButton>
@@ -113,7 +113,13 @@ class Cart extends Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart,
+  cart: state.cart.map(product => ({
+    ...product,
+    subtotal: product.price * product.amount,
+  })),
+  total: state.cart.reduce((total, product) =>{
+    return total + product.price*product.amount
+  }, 0)
 })
 
 const mapDispatchToProps = dispatch =>{
