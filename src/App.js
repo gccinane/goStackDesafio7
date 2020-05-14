@@ -1,3 +1,5 @@
+import 'intl';
+import 'intl/locale-data/jsonp/en';
 import React from 'react';
 import { Provider } from 'react-redux';
 import './config/ReactotronConfig';

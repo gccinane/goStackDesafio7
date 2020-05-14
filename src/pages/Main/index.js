@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import  * as CartActions from '../../store/modules/cart/actions'
-
+import { format} from '../../util/format'
 import {
   Container,
   Product,
@@ -30,19 +30,22 @@ class Main extends Component {
 
   async loadProducts() {
     const res = await api.get('/products');
+    const data = res.data.map(product =>({
+      ...product,
+      priceFormatted: format(product.price)
+    }))
     this.setState({ products: res.data });
   }
 
-  handleAddProduct = product => {
-    const { addTocart } = this.props;
+  handleAddProduct = id => {
+    const { addToCartRequest } = this.props;
 
-    addTocart(product);
+    addToCartRequest(id);
   };
 
   render() {
     const { navigation, amount } = this.props;
     const { products } = this.state;
-    console.tron.log(amount)
     return (
       <Container>
         <Header navigation={navigation} />
@@ -55,14 +58,14 @@ class Main extends Component {
               <ProductImage source={{ uri: item.image }} />
               <ProductDescription>{item.title}</ProductDescription>
               <ProductPrice>{item.price}</ProductPrice>
-              <ProductButton onPress={()=> this.handleAddProduct(item)}>
+              <ProductButton onPress={()=> this.handleAddProduct(item.id)}>
                 <ProductAmount>
                   <Icon
                     name="cart-plus"
                     size={20}
                     style={{ color: '#fff', top: 12 }}
                   />
-                  <ProductAmountText>{amount}</ProductAmountText>
+                  <ProductAmountText>{amount[item.id] ||0}</ProductAmountText>
                 </ProductAmount>
 
                 <ButtonText>ADICIONAR</ButtonText>
@@ -81,7 +84,9 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => ({
   amount: state.cart.reduce((amount, product) => {
-   return ([amount, product.id] = product.amount);
+
+    amount[product.id] = product.amount;
+    return amount;
   }, {})
 })
 

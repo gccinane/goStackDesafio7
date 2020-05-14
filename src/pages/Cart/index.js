@@ -7,6 +7,7 @@ import DeleteIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AddIcon from 'react-native-vector-icons/MaterialIcons';
 import RemoveIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as CartActions from '../../store/modules/cart/actions'
+import { formatPrice} from '../../util/format'
 import {
   ProductDetails,
   Container,
@@ -47,8 +48,8 @@ class Cart extends Component {
   }
 
   handleUpdate = (value, id) =>{
-    const {updateAmount} = this.props;
-    updateAmount(id,value);
+    const {updateAmountRequest} = this.props;
+    updateAmountRequest(id,value);
   }
   async loadProducts() {
     const res = await api.get('/products');
